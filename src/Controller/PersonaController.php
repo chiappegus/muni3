@@ -225,7 +225,11 @@ class PersonaController extends AbstractController
             ));
             /*=====  End of images  ======*/
 
-            $this->getDoctrine()->getManager()->flush();
+            // $this->getDoctrine()->getManager()->flush();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($persona);
+            $entityManager->flush();
 
             return $this->redirectToRoute('persona_index');
         }

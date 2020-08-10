@@ -1,0 +1,424 @@
+{% extends 'base.html.twig' %}
+
+
+{% block javascripts %}
+  {{parent()}}
+
+    <script src="https://kit.fontawesome.com/6f13c9ae43.js" crossorigin="anonymous"></script>
+  
+ <script src="{{asset('js/render_PersonaAdminController.js')}}"></script>   
+
+  <script src="{{asset('js/pepe.js')}}"></script>  
+
+
+
+
+
+{% endblock javascripts %}
+
+{% block title %} Manage Code {% endblock %}
+
+
+{% block body %}
+
+
+
+   
+<div class="row justify-content-center container col-sm-12 col-md-12 col-lg-12">
+
+<div class="card col-sm-6 col-md-6 col-lg-6 " >
+ <div class="card-body">
+  <img class="nav-profile-img rounded-circle col-sm-8 col-md-8 col-lg-8  mx-auto" src="{{ app.user.ImagenAvatar() }}" alt="Card image ">
+ 
+    <h4 class="card-title text-center">{{app.user.nombre}}</h4>
+    <p class="card-text text-center">siendo el 1-7-2020
+      estando en coronavirus falta 16 dias para que termine la fase 1.</p>
+  </div>
+  {# {{app.user.}} #}
+ {#  {% if roles|User("ROLE_DURAZNO") %}
+      <h3>Aca todos ROLE_DURAZNO</h3>
+  {% endif %} #}
+   {#   <h3>aca : {{ roles|User("ROLE_ADMINss") }}</h3> #}
+  
+
+  {#   {% if app.user|User("ROLE_SUPRA") %}
+      <h3>tenes permisos ROLE_SUPRA</h3>
+      {% else %}
+          <h3>Sin permisos ROLE_SUPRA </h3>       
+  {% endif %}
+
+   {% if app.user|User("ROLE_ADMIN") %}
+      <h3>tenes permisos ROLE_ADMIN</h3>
+      {% else %}
+          <h3>Sin permisos ROLE_ADMIN </h3>         
+  {% endif %}
+
+
+
+     {% if app.user|User("ROLE_USER") %}
+      <h3>tenes permisos ROLE_USER</h3>
+      {% else %}
+          <h3>Sin permisos ROLE_USER </h3>
+     {% endif %}
+
+
+     {% if app.user|User("ROLE_DURAZNO") %}
+      <h3>tenes permisos ROLE_DURAZNO</h3>
+      {% else %}
+        <h3>Sin permisos ROLE_DURAZNO </h3>
+      {% endif %} #}
+
+
+
+
+
+{# <p>Username: {{ app.user.username }}</p>
+{% if app.debug %}
+    <p>Request method: {{ app.request.method }}</p>
+    <p>Application Environment: {{ app.environment }}</p>
+{% endif %}
+ #}
+   {#  {% if app.user.getRoles|User("ROLE_DURAZNO") %}
+      <h3>Propio user :ROLE_DURAZNO</h3>
+    {% endif %}
+
+
+   {% if app.user.getRoles|User("ROLE_SUPRA") %}
+        <h3>Propio user :ROLE_SUPRA</h3>
+   {% endif %}
+
+
+   {% if app.user.getRoles|User("ROLE_ADMIN") %}
+          <h3>Propio user :ROLE_ADMIN</h3>
+   {% endif %}     
+
+
+    {% if app.user.getId|UserID("ROLE_DURAZNO") %}
+          <h3>UserID Propio user :ROLE_DURAZNO</h3>
+   {% endif %}   
+
+       {% if app.user.getId|UserID("ROLE_USER") %}
+          <h3>UserID Propio user :ROLE_USER</h3>
+   {% endif %}   
+
+
+
+    {% if app.user.getId|UserID("ROLE_ADMIN") %}
+          <h3>UserID Propio user :ROLE_ADMIN</h3>
+   {% endif %}  
+
+    {% if app.user.getId|UserID("ROLE_SUPRA") %}
+          <h3>UserID Propio user :ROLE_SUPRA</h3>
+   {% endif %}  
+
+
+
+    {% if "153"|UserID("ROLE_SUPRA") %}
+          <h3>UserID 153 Propio user :ROLE_SUPRA</h3>
+   {% endif %}  
+
+   {% if "128"|UserID("ROLE_DURAZNO") %}
+          <h3>UserID 128 Propio user :ROLE_DURAZNO</h3>
+   {% endif %}  
+
+   {% if "128"|UserID("ROLE_ADMIN") %}
+          <h3>UserID 128 Propio user :ROLE_ADMIN</h3>
+   {% endif %}  
+
+
+   {% if 128|UserID("ROLE_ADMIN") %}
+          <h3>UserID 128 Propio user :ROLE_ADMIN</h3>
+   {% endif %}  
+
+   {% if 154|UserID('ROLE_DURAZNO') %}
+          <h3>UserID 154 Propio user :ROLE_DURAZNO</h3>
+   {% endif %}  
+
+
+
+           
+
+   {% if 154|UserID('ROLE_DURAZNO') %}
+          <h3>UserID 154 Propio user :ROLE_DURAZNO</h3>
+   {% endif %}   #}
+  {# ROLE_USER #}
+
+    <h1>Edit the Article! ?</h1>
+
+    <form method="POST" action="{{ path('upload_test') }}" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <button type="submit" class="btn btn-primary">Upload!</button>
+    </form>
+
+
+
+    <h1 id='ruta_Admin' href="{{path('ruta_Admin')}}" hidden="true"></h1>
+
+  
+    <form>
+     <div class="form-group">
+      <input class="form-control  col-sm-10 col-md-10 col-lg-10 valorDNI succes" name="q" type="text" placeholder="dni o nombre" id="num"  autocomplete="off"  value="{{app.request.query.get('q')}}">
+      <button type="submit" class="btn btn-primary buscar">Buscar <span class="fa fa-heart-o like-article"></span></button>
+       </div>
+     </form>
+
+
+<div id="sidebar1">
+
+    {{ render(controller(
+        'App\\Controller\\PersonaAdminController::recentArticles',{'q': app.request.query.get('q')  })) }}
+</div>
+
+   
+         {% apply spaceless %}
+    <div>
+        <strong class="">Intendentes encontrados ({{pagination.getTotalItemCount}})  </strong>
+        <h4> Intendentes por paginina ({{ pagination|length }})</h4>
+    </div>
+     {% endapply %}
+
+
+
+ </div>
+
+    
+      <br>  
+  
+
+
+
+<!--Grid row-->
+
+
+  <!--G
+  </div>rid column-->
+
+
+
+ {% if roles %}
+                  
+                     
+
+
+<div class="d-flex justify-content-center col-sm-10 col-md-10 col-lg-10">
+  <div class="container  col-sm-4 col-md-4 col-lg-4">
+    
+ 
+    <table class="table table-dark table-striped center ">
+  <thead>
+            <tr>
+                <th style="text-align:center">ROLES</th>
+            </tr>
+  </thead>
+  <tbody>
+   
+ 
+        {% for item in roles %}
+            </tr>
+                           
+           <td style="text-align:center"> <small> {{item}} </small> </td>
+           <tr>
+        {% endfor %}
+        
+                
+       
+  </tbody>
+
+</table>
+
+ </div>
+  
+</div>
+
+ {% endif %}   
+ 
+<div class="d-flex justify-content-center xl">
+
+    <table class="table table-dark table-striped center">
+           {# aca empieza el form#}
+        <thead>
+            <tr>
+               <th>{{ knp_pagination_sortable(pagination, 'Id', 'p.id') }}</th>
+               {# <th>Id</th>
+                <th>Nombre</th>
+#}
+                 <th {% if pagination.isSorted('p.nombre') %} class="sorted"{% endif %}>
+                     {{ knp_pagination_sortable(pagination, 'Nombre', 'p.nombre') }}
+                  </th>
+
+                <th>Apellido</th>
+                <th>Dni</th>
+                <th>roles</th>
+                <th>actions</th>
+                <th></th>
+                <th><small> Funcion </small></th>
+                <th><small> acciones </small></th>
+                <th><small> Imagenes </small></th>
+            </tr>
+        </thead>   
+         <tbody>
+        {% for persona in pagination %}
+            <tr>
+                <td>{{ persona.id }}</td>
+                <td>{{ persona.nombre }}</td>
+                <td>{{ persona.apellido }}</td>
+                <td>{{ persona.dni }}</td>
+                <td>{% for roles in persona.getRoles %}
+                     {{roles}}
+                {% endfor %}
+                {#   {{ persona.getRoles[1]}}</td> #}
+                <td>
+                  
+                    <a href="{{ path('persona_show', {'id': persona.id}) }}" class="btn btn-info btn-sm " role="button" >show</a>
+                </td>
+                  {#
+                    <a href="{{ path('persona_show', {'id': persona.id}) }}">show</a>
+                    <a href="{{ path('persona_edit', {'id': persona.id}) }}">edit</a>#}
+                <td> 
+                {% if is_granted('ROLE_ADMIN') %}
+
+
+                  {% if persona.id!=app.user.id %}
+                       
+                     <a href="{{ path('persona_edit', {'id': persona.id}) }}" class="btn btn-info btn-sm " id="btn-color-picker" role="button" >edit</a>
+                   {% endif %}
+                {% endif %}
+
+                 {% if persona.id!=app.user.id %}
+
+                 {% if is_granted('ROLE_SUPRA') %}
+                  <a href="{{ path('persona_index', {'_switch_user':persona.email}) }}"class="btn btn-info btn-sm " id="btn-color-picker" role="button" >_switch_user</a>
+                 {% endif %}
+                  {% endif %}
+                
+                 {#  #http://localhost/muni/public/intendente?_switch_user=gust1@gus.com #}
+                </td>
+
+                {# hacer un Twig Extension  #}
+
+               
+                <td>
+                     {% if persona.intendente %}
+                        <div class="spinner-grow text-success"></div>
+                        {# <span class="fa fa-close">({{persona.intendente|length}} cantidad)</span>#} 
+
+                       <span class="fa fa-close">{{persona.intendente.estado}}</span> 
+                    {% else %}
+                      
+                       <span class="glyphicon glyphicon-envelope corazon">S/Funcion</span> 
+                       <div class="spinner-grow spinner-grow-sm"></div>        
+                    {% endif %}
+                </td>
+             
+         
+
+           {% if persona.id!=app.user.id %}
+         
+
+
+
+                {% if is_granted('ROLE_SUPRA') %}
+
+            {#       {% if ((is_granted('ROLE_SUPRA') or (is_granted('ROLE_ADMIN') and (persona.getRoles|User("ROLE_ADMIN") or persona.getRoles|User("ROLE_USER") )  ) )) %} #}
+                 <td>
+                     {#  {% if persona.id|UserID("ROLE_DURAZNO") %}
+                    <h3>UserID 154 Propio user :ROLE_DURAZNO</h3>
+                      {% endif %}  
+ #}
+   
+                          <form action="{{ path('persona_delete', {'id': persona.id}) }} " method="post">
+                            <input type="hidden" name="_method" value="DELETE" />
+                              <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ persona.id) }}">
+                            <button class="btn btn-danger btn-sm">borrar</button>
+                </td>
+
+                
+               
+                {% else %}
+                      <td>
+                        {% if persona.id|UserID("ROLE_SUPRA")%}
+                            sin permisos
+                        {% else %}
+                                    <form action="{{ path('persona_delete', {'id': persona.id}) }} " method="post">
+                            <input type="hidden" name="_method" value="DELETE" />
+                              <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ persona.id) }}">
+                            <button class="btn btn-danger btn-sm">borrar</button>
+                        {% endif %}
+                      
+                     </td>
+            
+                 {% endif %}
+             
+
+
+         
+
+                {% else %}
+                  <td>
+                   ------ 
+                    {# {% if persona.id|UserID("ROLE_ADMIN") %}
+                      <h3> UserID Propio user :ROLE_ADMIN</h3>
+                      {% endif %}   
+                      {% if persona.id|UserID("ROLE_SUPRA") %}
+                      <h3> UserID Propio user :ROLE_SUPRA</h3>
+                      {% endif %}  
+                        {% if persona.id|UserID("ROLE_USER") %}
+                      <h3> UserID Propio user :ROLE_USER</h3>
+                      {% endif %}   
+                      {% if persona.id|UserID("ROLE_DURAZNO") %}
+                      <h3> UserID Propio user :ROLE_DURAZNO</h3>
+                      {% endif %} 
+ #}
+                   </td>
+               {% endif %}
+          
+
+           
+               <td>
+                  {% if persona.PersonaImagePath!=""%}
+                   <img class="img rounded-circle img-fluid" src="{{ asset(persona.PersonaImagePath) }}" width="30" height="30" />
+                  {% endif %}               
+              </td>
+
+            </tr>
+
+
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">Sin Resultados</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+<div class="navigation">
+
+    {{ knp_pagination_render(pagination) }}
+
+
+</div>
+</div>
+</div>
+
+
+<div id="sidebar" align="center">
+    {{ render(controller(
+        'App\\Controller\\PersonaAdminController::recentArticles',{'q': app.request.query.get('q')  })) }}
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+{% endblock body %}
+
+

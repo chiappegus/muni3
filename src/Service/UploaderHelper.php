@@ -33,4 +33,9 @@ class UploaderHelper
         return 'uploads/' . UploaderHelper::PERSONA_IMAGE . '/' . $this->getImageFilename();
     }
 
+    public function getPathSERVER()
+    {
+        return $this->uploadsPath;
+    }
+
 }

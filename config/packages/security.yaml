@@ -13,6 +13,7 @@ security:
               property: email
     role_hierarchy:
         ROLE_ADMIN: [ROLE_ADMIN_ARTICLE]
+        ROLE_DURAZNO: [ROLE_ADMIN , ROLE_SUPRA]
         ROLE_SUPRA: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     firewalls:

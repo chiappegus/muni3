@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Persona;
 use App\Repository\PersonaRepository;
 use Doctrine\Migrations\Generator\generate;
+use Doctrine\ORM\EntityManagerInterface;
 use Gedmo\Sluggable\Util\Urlizer;
 use Knp\Component\Pager\PaginatorInterface;
 use Psr\Log\LoggerInterface;
@@ -23,11 +24,14 @@ class PersonaAdminController extends AbstractController
 {
 
     private $router;
+    private $em;
 
     public function __construct(
-        RouterInterface $router
+        RouterInterface $router, EntityManagerInterface $em
     ) {
         $this->router = $router;
+        $this->em     = $em;
+
     }
 
     /**
@@ -382,7 +386,7 @@ class PersonaAdminController extends AbstractController
                 $patrón = '^muni^'; #^(10|172\.16|192\.168)\.#'
 
                 if (preg_match($patrón, $_SERVER['PHP_SELF'])) {
-                    $ruta = '/muni/public/TEMP/';
+                    $ruta = '/muni3/public/TEMP/';
                 } else {
                     $ruta = '/TEMP/';
 
@@ -544,6 +548,119 @@ se usa Urlizer por lo espacion
         // persona_new
         //return null;
         //        10158227387394342 / picture ? type = normal
+    }
+
+    /**
+     * @Route("/RolesSupra", name="ROLES_CHANGES",methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function RolesSupra($dni = null, PersonaRepository $personaRepository, Request $request, LoggerInterface $logger, PaginatorInterface $paginator)
+    {
+        $logger->info('Se esta Buscando por DNI , Function controlDni');
+        $persona = $personaRepository->findBy(['dni' => $dni]);
+
+        $role = $request->attributes->get('_is_granted');
+        $role = $role[0];
+        //dd($role->getAttributes());
+
+        // $query = $this->em->createQuery("SELECT DISTINCT p.roles  FROM  App\Entity\Persona p ")->getResult();
+        //dd($query);
+
+        //dd($personaRepository->Unicosroles()[0]['roles'], 'aca roles');
+        //dump($role->getAttributes());
+        // dump($role->getAttributes());
+
+        /*    return new JsonResponse(['valor' => isset($persona[0]),
+        'direccion'                      => $this->getParameter('kernel.project_dir'),
+        "RoutePermison"                  => $request->attributes->get('_route'),
+        'Permision'                      => $role->getAttributes(),
+        ]);
+
+        return $this->render('persona/index.html.twig', [
+        'personas'           => $personaRepository->findAll(),
+        'nombre_controlador' => 'PersonaController',
+        ]);*/
+
+        //$queyBuilder = $personaRepository->getwithQueryBuilder($q);
+
+        $q           = $request->query->get('q');
+        $queyBuilder = $personaRepository->getwithQueryBuilder($q);
+        $pagination  = $paginator->paginate(
+            $queyBuilder, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10/*limit per page*/
+        );
+        $rolesMio[] = $role->getAttributes();
+        //$roles      = $personaRepository->Unicosroles()[0]['roles'];
+        $roless = $personaRepository->Unicosroles();
+        // var_dump(count($roless));
+        $rolesTotales;
+        foreach ($roless as $key => $value) {
+            if ($roless[$key]['roles'] != null) {
+                $rolesTotales[$key] = $roless[$key]['roles'][0];
+            }
+
+        };
+
+        //dump($rolesTotales);
+
+        //dump(array_unique($roless));
+        //dump('cacac', array_unique($roless));
+        //dump('dsaasdads', $roless);
+        //var_dump($roles, 'fin');
+        //var_dump($rolesMio);
+        // $diferencia = array_diff_assoc(array_unique($roless), $rolesMio);
+        //var_dump($diferencia);
+        // dump('diff 1', $diferencia);
+        /*==============================
+        =            aca va            =
+        ==============================*/
+
+        $diferencia = array_diff_assoc($rolesTotales, $rolesMio);
+        // dump('diff 0', $diferencia);
+
+        /*=====  End of aca va  ======*/
+
+        $rolesMios[] = $role->getAttributes();
+        $rolesMios[] = 'ROLE_USER';
+        //  dump($rolesMios);
+
+        $diferencia = array_diff_assoc($rolesTotales, $rolesMios);
+        //   dump('diff 0', $diferencia);
+
+        $rolesTotales[] = 'ROLE_USER';
+
+        $rolUser = $request->attributes->get('_is_granted');
+
+        //  dump('tus permisos', $rolUser);
+
+        /*================================
+        =            asi va :            =
+        ================================*/
+
+        // este es la manera correcta primero traer todos los permisos
+        // y luego comparar los otros
+        /* $diferencia = array_diff_assoc($roles, $rolesMios);
+        dump('diff 0', $diferencia);
+         */
+        /*=====  End of asi va :  ======*/
+
+        /*   $diferencia = array_diff_assoc($rolesMios, $roles);
+        dump('diff 0', $diferencia);*/
+        // $pagination = $paginator->paginate(
+        //     $personaRepository->findAll(), /* query NOT result */
+        //     $request->query->getInt('page', 1), /*page number*/
+        //     10/*limit per page*/
+        // );
+
+        return $this->render('persona_admin/RolesSupra.html.twig', [
+            'pagination'         => //$personaRepository->findBy([], ['dni' => 'asc']),
+            $pagination,
+            'nombre_controlador' => 'PersonaController',
+            'roles'              => $rolesTotales,
+            'rolesUser'          => $rolUser,
+        ]);
+
     }
 
 }

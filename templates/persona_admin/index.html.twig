@@ -70,7 +70,7 @@
   
     <form>
      <div class="form-group">
-      <input class="form-control  col-sm-10 col-md-10 col-lg-10 valorDNI succes" name="q" type="text" placeholder="dni o nombre" id="num" value="{{app.request.query.get('q')}}">
+      <input class="form-control  col-sm-10 col-md-10 col-lg-10 valorDNI succes" name="q" type="text" placeholder="dni o nombre" id="num" autocomplete="off" value="{{app.request.query.get('q')}}">
       <button type="submit" class="btn btn-primary buscar">Buscar <span class="fa fa-heart-o like-article"></span></button>
        </div>
      </form>

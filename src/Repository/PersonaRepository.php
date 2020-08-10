@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Persona;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -15,9 +16,12 @@ use Doctrine\ORM\QueryBuilder;
  */
 class PersonaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+    private $em;
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
     {
         parent::__construct($registry, Persona::class);
+        $this->em = $em;
     }
 
     // /**
@@ -162,6 +166,25 @@ class PersonaRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->execute();
+
+    }
+
+    /**
+     * @return  Persona[]
+     */
+
+    public function Unicosroles()
+    {
+        // $query = $em->createQuery('SELECT DISTINCT u.id FROM CmsArticle a JOIN a.user u');
+        //  $ids = $query->getResult();createQuery
+
+        // $query = $this->createNativeQuery("SELECT DISTINCT roles  FROM  Persona")
+        // ;
+
+        // // returns an array of Product objects
+        // return $query->getResult();
+
+        return $this->em->createQuery("SELECT DISTINCT p.roles  FROM  App\Entity\Persona p ")->getResult();
 
     }
 

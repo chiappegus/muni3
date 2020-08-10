@@ -41,8 +41,9 @@ class PersonaType extends AbstractType
             //     'placeholder'     => 'Selecciona el estado del intendente o id',
             //     'invalid_message' => 'No deberias hacer eso tengo tu ip',
 
-            // ])
+            // ])array('attr' => array("autocomplete" => "off" ,'label' => 'Repeat Password'))
             ->add('email')
+
             ->add('password', RepeatedType::class, [
                 'type'            => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',

@@ -78,26 +78,19 @@
       Intendentes
     </button>
     <div class="dropdown-menu">
-      
       <a class="dropdown-item " href="{{path('intendente_index')}}">Mostrar<span class="glyphicon glyphicon-heart"></span></a>
-
      {#--  <a class="dropdown-item" href="{{path('intendente_show')}}">Intendentes Mostrar</a>
      <a class="dropdown-item" href="{{path('intendente_edit')}}">Personas Editar</a> #}
-     {% if is_granted('ROLE_ADMIN') %}
-                                   
-                                
+     {% if is_granted('ROLE_ADMIN') %}                        
       <a class="dropdown-item" href="{{path('intendente_new')}}">Crear</a>
       {% endif %}
     </div>
      {% endif %}
-  </div>
-
- 
-      
+    </div>
               <ul class="dropdown">
                     {% if is_granted('ROLE_USER') %}
-                        <li class="nav-item dropdown" style="color:blue; border: 1px ;margin-right:20px;" >
-                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <li class="nav-item dropdown" style="color:blue; border: 1px ;margin-right:30px;" >
+                            <a class="nav-link dropdown-toggle" {# href="http://example.com" #} id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                              {#  <img class="nav-profile-img rounded-circle" src="{{ asset('images/default.jpg') }}" height="45em"> #}
                                <img class="nav-profile-img rounded-circle" src="{{ app.user.ImagenAvatar(45) }}" >
                             </a>
@@ -106,10 +99,12 @@
                                
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <a class="dropdown-item" href="{{ path('app_account') }}">Cuentas</a>
+                                      <a class="dropdown-item" href="{{ path('ROLES_CHANGES') }}">Admin Rolesa</a>
                                 {% endif %}
                                   {% if is_granted('ROLE_SUPRA') %}
                                     <a class="dropdown-item" href="{{ path('switch_SUPRA') }}">Switch</a>
                                       <a class="dropdown-item" href="{{ path('api_account') }}">CuentasApi</a>
+                                     
                                 {% endif %}
                                 <a class="dropdown-item" href="{{ path('app_logout') }}">Logout{{app.user.id}}</a> 
                                  
@@ -125,7 +120,7 @@
                             <li class="nav-item">
                             <a style="color: #fff;" class="nav-link" href="{{ path('persona_new') }}">Registrarse</a>
 
-                           
+        
                         </li>
                     {% endif %}
                 </ul>

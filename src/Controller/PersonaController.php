@@ -51,7 +51,8 @@ class PersonaController extends AbstractController
         //$request->attributes->set('_route_params', $parameters);
         // dd($request->attributes->get('_route_params'));
         // dd($request->attributes->get('_access_control_attributes')[0]);
-        // dd($aca);
+        // dd($aca);getImagePath
+        //  dump($uploaderHelper->getPathSERVER());
         $facebook = $request->query->all();
         //dd($facebook);
         $roless = $request->attributes->get('_access_control_attributes')[0];
@@ -156,8 +157,10 @@ class PersonaController extends AbstractController
 /**
  * @Route("/{id}/edit", name="persona_edit", methods={"GET","POST"})
  */
-    public function edit(Request $request, Persona $persona, UploaderHelper $uploaderHelper): Response
+    public function edit(Request $request, Persona $persona, UploaderHelper $uploaderHelper, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+
+        /*https://diego.com.es/arrays-en-php*/
 
         /* $roles = $persona->getRoles();
         $roles[] = 'ROLE_RODOLFO';
@@ -216,6 +219,10 @@ class PersonaController extends AbstractController
 
                 $persona->setImageFilename($newFilename);
             }
+            $persona->setPassword($passwordEncoder->encodePassword(
+                $persona,
+                $form['password']->getData()
+            ));
             /*=====  End of images  ======*/
 
             $this->getDoctrine()->getManager()->flush();

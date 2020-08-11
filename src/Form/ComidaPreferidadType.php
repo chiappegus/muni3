@@ -13,8 +13,6 @@ class ComidaPreferidadType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('Nombre_buffy')
-            ->add('comida')
         ;
     }
 

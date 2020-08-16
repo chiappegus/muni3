@@ -6,6 +6,13 @@
     <h1>Create new Pedido</h1>
 
     {{ include('pedido/_form.html.twig') }}
+    
 
-    <a href="{{ path('pedido_index') }}">back to list</a>
+
+    <div  class="col-sm-12" >
+    
+ 		<a href="{{ path('pedido_index') }}" class=" col-sm-2 btn btn-primary" role="button">back to list</a>
+	</div>
+
+  
 {% endblock %}

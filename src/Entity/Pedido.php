@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -36,11 +38,6 @@ class Pedido
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Buffy", inversedBy="pedidos")
-     */
-    private $menu;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $cantidad;
@@ -60,21 +57,19 @@ class Pedido
      */
     private $Persona;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Buffy", mappedBy="pedidos")
+     */
+    private $menu;
+
+    public function __construct()
+    {
+        $this->menu = new ArrayCollection();
+    }
+
     public function getId():  ? int
     {
         return $this->id;
-    }
-
-    public function getMenu() :  ? Buffy
-    {
-        return $this->menu;
-    }
-
-    public function setMenu( ? Buffy $menu) : self
-    {
-        $this->menu = $menu;
-
-        return $this;
     }
 
     public function getCantidad() :  ? int
@@ -182,15 +177,54 @@ class Pedido
         // throw new \Exception('Method getUpdatedAt() is not implemented.');
     }
 
-    public function getPersona(): ?Persona
+    public function getPersona() :  ? Persona
     {
         return $this->Persona;
     }
 
-    public function setPersona(?Persona $Persona): self
+    public function setPersona( ? Persona $Persona) : self
     {
         $this->Persona = $Persona;
 
         return $this;
     }
+
+    public function __toString()
+    {
+
+        return $this->menu;
+
+    }
+
+    /**
+     * @return Collection|Buffy[]
+     */
+    public function getMenu(): Collection
+    {
+        return $this->menu;
+    }
+
+    public function addMenu(Buffy $menu): self
+    {
+        if (!$this->menu->contains($menu)) {
+            $this->menu[] = $menu;
+            $menu->setPedidos($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMenu(Buffy $menu): self
+    {
+        if ($this->menu->contains($menu)) {
+            $this->menu->removeElement($menu);
+            // set the owning side to null (unless already changed)
+            if ($menu->getPedidos() === $this) {
+                $menu->setPedidos(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

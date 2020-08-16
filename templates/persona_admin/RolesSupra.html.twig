@@ -338,7 +338,8 @@
                       <td>
                         {% if persona.id|UserID("ROLE_SUPRA")%}
                             sin permisos
-                        {% else %}
+                        {% else %}
+
                                     <form action="{{ path('persona_delete', {'id': persona.id}) }} " method="post">
                             <input type="hidden" name="_method" value="DELETE" />
                               <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ persona.id) }}">
@@ -390,25 +391,27 @@
         {% endfor %}
         </tbody>
     </table>
-
-
-
-
-<div class="navigation">
-
-    {{ knp_pagination_render(pagination) }}
+ 
 
 
 </div>
 </div>
-</div>
 
+<div class="navigation" align="center">
+{{ knp_pagination_render(pagination) }}
+
+{# <div class="navigation" align="center"> #}
+  
+</div>
 
 <div id="sidebar" align="center">
     {{ render(controller(
         'App\\Controller\\PersonaAdminController::recentArticles',{'q': app.request.query.get('q')  })) }}
 </div>
+</div>
+</div>
 
+</div>
   
 
 

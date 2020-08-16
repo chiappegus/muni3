@@ -8,14 +8,6 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>CreatedAt</th>
-                <td>{{ pedido.createdAt ? pedido.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ pedido.updatedAt ? pedido.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Id</th>
                 <td>{{ pedido.id }}</td>
             </tr>
@@ -30,6 +22,14 @@
             <tr>
                 <th>Restaurant</th>
                 <td>{{ pedido.restaurant }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ pedido.createdAt ? pedido.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ pedido.updatedAt ? pedido.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

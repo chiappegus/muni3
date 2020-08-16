@@ -13,6 +13,8 @@ class BuffyType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('stock')
+            ->add('precio')
         ;
     }
 

@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class Persona implements UserInterface
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -96,9 +97,15 @@ class Persona implements UserInterface
      */
     private $IdFacebook;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Pedido", mappedBy="Persona")
+     */
+    private $pedidos;
+
     public function __construct()
     {
         $this->apiTokens = new ArrayCollection();
+        $this->pedidos   = new ArrayCollection();
     }
 
     /**
@@ -139,7 +146,12 @@ class Persona implements UserInterface
         return $this;
     }
 
-    public function getApellido():  ? string
+    public function getNombreapellido():  ? string
+    {
+        return $this->apellido . ' ' . $this->email;
+    }
+
+    public function getApellido() :  ? string
     {
         return $this->apellido;
     }
@@ -360,6 +372,37 @@ class Persona implements UserInterface
     public function setIdFacebook( ? string $IdFacebook) : self
     {
         $this->IdFacebook = $IdFacebook;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Pedido[]
+     */
+    public function getPedidos() : Collection
+    {
+        return $this->pedidos;
+    }
+
+    public function addPedido(Pedido $pedido): self
+    {
+        if (!$this->pedidos->contains($pedido)) {
+            $this->pedidos[] = $pedido;
+            $pedido->setPersona($this);
+        }
+
+        return $this;
+    }
+
+    public function removePedido(Pedido $pedido): self
+    {
+        if ($this->pedidos->contains($pedido)) {
+            $this->pedidos->removeElement($pedido);
+            // set the owning side to null (unless already changed)
+            if ($pedido->getPersona() === $this) {
+                $pedido->setPersona(null);
+            }
+        }
 
         return $this;
     }

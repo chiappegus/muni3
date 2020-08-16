@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pedido{% endblock %}
+
+{% block body %}
+    <h1>Pedido</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ pedido.id }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad</th>
+                <td>{{ pedido.cantidad }}</td>
+            </tr>
+            <tr>
+                <th>PrecioPedido</th>
+                <td>{{ pedido.PrecioPedido }}</td>
+            </tr>
+            <tr>
+                <th>Restaurant</th>
+                <td>{{ pedido.restaurant }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ pedido.createdAt ? pedido.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ pedido.updatedAt ? pedido.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('pedido_index') }}">back to list</a>
+
+    <a href="{{ path('pedido_edit', {'id': pedido.id}) }}">edit</a>
+
+    {{ include('pedido/_delete_form.html.twig') }}
+{% endblock %}

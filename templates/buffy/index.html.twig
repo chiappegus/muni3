@@ -10,6 +10,8 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Stock</th>
+                <th>Precio</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,6 +20,8 @@
             <tr>
                 <td>{{ buffy.id }}</td>
                 <td>{{ buffy.name }}</td>
+                <td>{{ buffy.stock }}</td>
+                <td>{{ buffy.precio }}</td>
                 <td>
                     <a href="{{ path('buffy_show', {'id': buffy.id}) }}">show</a>
                     <a href="{{ path('buffy_edit', {'id': buffy.id}) }}">edit</a>
@@ -25,7 +29,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

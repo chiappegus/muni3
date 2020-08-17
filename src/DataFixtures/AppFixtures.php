@@ -122,7 +122,7 @@ class AppFixtures extends Fixture
 
                 $pedido->setCantidad($i + 1);
                 $pedido->setRestaurant('A TU Medida');
-                $pedido->setMenu($buffy);
+                $pedido->addMenu($buffy);
                 //$pedido->setMenu($buffy2);
                 $pedido->setCreatedAt($pedido->getCreatedAt());
                 $pedido->setUpdatedAt($pedido->getUpdatedAt());
@@ -133,7 +133,12 @@ class AppFixtures extends Fixture
                 $pedido1 = new Pedido();
                 $pedido1->setCantidad($i);
                 $pedido1->setRestaurant('A TU Medida');
-                $pedido1->setMenu($buffy2);
+                $pedido1->addMenu($buffy2);
+                $pedido1->addMenu($buffy);
+                $pedido1->addMenu($buffy);
+                $pedido1->addMenu($buffy);
+                $pedido1->addMenu($buffy);
+                $pedido1->addMenu($buffy);
                 //$pedido->setMenu($buffy2);
                 $pedido1->setCreatedAt($pedido1->getCreatedAt());
                 $pedido1->setUpdatedAt($pedido1->getUpdatedAt());

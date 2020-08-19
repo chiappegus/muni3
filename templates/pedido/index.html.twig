@@ -40,8 +40,23 @@
 
                 </td>
                 <td>{{ pedido.restaurant }}</td>
-                <td>{{ pedido.createdAt ? pedido.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ pedido.updatedAt ? pedido.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+              {#   <td>{{ pedido.createdAt ? pedido.createdAt|date('Y-m-d H:i:s') : '' }}</td> #} 
+          
+            
+           <td> 
+             {{ pedido.createdAt ? pedido.createdAt|date('Y-m-d H:i:s') : '' }} <br>
+             {{pedido.createdAt ? pedido.createdAt|ago : '' }}
+
+           {#  <br>{{ myDate|time_diff}}
+                {{ pedido.createdAt |ago(fromTomorrow)}} #}
+              </td>
+                <td>
+                    {{ pedido.updatedAt ? pedido.updatedAt|date('Y-m-d H:i:s') : '' }} 
+                    <br>
+                    {{pedido.updatedAt ? pedido.updatedAt|ago : '' }}
+
+
+                </td>
                 
                 <td>
                     <a href="{{ path('pedido_show', {'id': pedido.id}) }}">show</a>

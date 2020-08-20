@@ -35,7 +35,7 @@ class Buffy
     private $precio;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Pedido", mappedBy="menu" )
+     * @ORM\OneToMany(targetEntity="App\Entity\Pedido", mappedBy="menu" ,fetch="EXTRA_LAZY")
      */
     private $pedidos;
 

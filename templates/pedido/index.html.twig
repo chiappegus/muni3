@@ -45,8 +45,8 @@
             
            <td> 
              {{ pedido.createdAt ? pedido.createdAt|date('Y-m-d H:i:s') : '' }} <br>
-             {{pedido.createdAt ? pedido.createdAt|ago : '' }}
-
+             {{pedido.createdAt ? pedido.createdAt|ago : '' }} <br>
+            
            {#  <br>{{ myDate|time_diff}}
                 {{ pedido.createdAt |ago(fromTomorrow)}} #}
               </td>

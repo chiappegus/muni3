@@ -39,6 +39,11 @@ class Buffy
      */
     private $pedidos;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $areStock;
+
     public function __construct()
     {
         $this->pedidos = new ArrayCollection();
@@ -121,6 +126,18 @@ class Buffy
 
         return $this->name;
 
+    }
+
+    public function getAreStock(): ?bool
+    {
+        return $this->areStock;
+    }
+
+    public function setAreStock(bool $areStock): self
+    {
+        $this->areStock = $areStock;
+
+        return $this;
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Buffy;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,6 +16,7 @@ class BuffyType extends AbstractType
             ->add('name')
             ->add('stock')
             ->add('precio')
+            ->add('areStock', HiddenType::class, ['attr' => ['checked' => true, 'value' => 0]])
         ;
     }
 

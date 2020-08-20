@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Buffy;
 use App\Entity\Pedido;
 use App\Entity\Persona;
 use App\Repository\PersonaRepository;
@@ -41,7 +42,27 @@ class PedidoType extends AbstractType
             ->add('restaurant')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('menu')
+            //->add('menu')
+
+            ->add('menu', EntityType::class, array(
+
+                'class'         => Buffy::class,
+
+                'query_builder' => function ($er) {
+
+                    return $er->createQueryBuilder('p')
+
+                    //->addSelect('a')
+                        ->andWhere('p.areStock = 0')
+                    // ->setParameter('val', $this->tokenStorage->getToken()->getUser()->getId())
+                        ->orderBy('p.name', 'ASC')
+                    ;
+
+                },
+
+                'choice_label'  => 'name',
+
+            ))
             // ->add('Persona')
 
             // ->add('Persona', EntityType::class, ['class' => Persona::class,

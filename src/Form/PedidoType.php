@@ -49,6 +49,7 @@ class PedidoType extends AbstractType
 
                 'query_builder' => function ($er) {
                     return $er->createQueryBuilder('p')
+                    //  ->innerJoin('p.pedidos', 'a')
                         ->andWhere('p.areStock = 0')
                         ->orderBy('p.name', 'ASC')
                     ;

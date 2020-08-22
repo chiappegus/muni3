@@ -16,7 +16,7 @@ class BuffyType extends AbstractType
             ->add('name')
             ->add('stock')
             ->add('precio')
-            ->add('areStock', HiddenType::class, ['attr' => ['checked' => true, 'value' => 0]])
+            ->add('areStock', HiddenType::class, ['attr' => ['checked' => true, 'value' => true]])
         ;
     }
 

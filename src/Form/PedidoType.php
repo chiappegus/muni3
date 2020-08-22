@@ -5,10 +5,11 @@ namespace App\Form;
 use App\Entity\Buffy;
 use App\Entity\Pedido;
 use App\Entity\Persona;
+use App\Form;
+use App\Repository\BuffyRepository;
 use App\Repository\PersonaRepository;
 use Doctrine\ORM\Decorator\createQueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,74 +43,65 @@ class PedidoType extends AbstractType
             ->add('restaurant')
             ->add('createdAt')
             ->add('updatedAt')
-            //->add('menu')
+            // ->add('menu')
+            /*====================================
 
-            // ->add('menu', EntityType::class, array(
+        =            clasica anda            =
 
-            //     'class'         => Buffy::class,
+        =====================================*/
 
-            //     'query_builder' => function ($er) {
-
-            //         return $er->createQueryBuilder('p')
-
-            //         //->addSelect('a')
-            //             ->andWhere('p.areStock = 0')
-            //         // ->setParameter('val', $this->tokenStorage->getToken()->getUser()->getId())
-            //             ->orderBy('p.name', 'ASC')
-            //         ;
-
-            //     },
-
-            //     'choice_label'  => 'name',
-
+            //          ->add('menu', EntityType::class, array(
+            // 'class'         => Buffy::class,
+            // 'query_builder' => function ($er) {
+            // // $criteria = Criteria::create()
+            // //     ->andWhere(Criteria::expr()->eq('areStock', true))
+            // //     ->orderBy(['name' => 'DESC']);
+            // // dump($criteria);
+            // // dump($er);
+            // return $er->createQueryBuilder('p')
+            // ->andWhere('p.areStock = 0')
+            // ->orderBy('p.name', 'ASC')
+            // ;
+            // },
+            // 'choice_label'  => 'name',
             // ))
 
+            /*=====  End of clasica anda  ======*/
+
+            /*=========================================================================
+        =  menu con BuffyRepository::CreateTrueStockCriteria()
+        =========================================================================*/
             ->add('menu', EntityType::class, array(
 
                 'class'         => Buffy::class,
+                'placeholder'   => 'Elige una OPCION',
+                // 'multiple'      => true,
 
                 'query_builder' => function ($er) {
 
-                    // $criteria = Criteria::create()
-                    //     ->andWhere(Criteria::expr()->eq('areStock', true))
-                    //     ->orderBy(['name' => 'DESC']);
-
-                    // dump($criteria);
-                    // dump($er);
-
                     return $er->createQueryBuilder('p')
-                        ->andWhere('p.areStock = 0')
-                        ->orderBy('p.name', 'ASC')
+                        ->addCriteria(BuffyRepository::CreateTrueStockCriteria())
                     ;
-
                 },
-
                 'choice_label'  => 'name',
-
             ))
 
-            // ->add('Persona')
+            /*=====  End of menu con repositorioBuffy  ======*/
 
+            // ->add('Persona')
             // ->add('Persona', EntityType::class, ['class' => Persona::class,
             // ])
             ->add('Persona', EntityType::class, array(
-
                 'class'         => Persona::class,
-
                 'query_builder' => function (PersonaRepository $er) {
-
                     return $er->createQueryBuilder('p')
-
                     //->addSelect('a')
                         ->andWhere('p.id = :val')
                         ->setParameter('val', $this->tokenStorage->getToken()->getUser()->getId())
                         ->orderBy('p.nombre', 'ASC')
                     ;
-
                 },
-
                 'choice_label'  => 'nombre' . 'apellido',
-
             ))
 
         ;

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Buffy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
@@ -25,26 +26,36 @@ class BuffyRepository extends ServiceEntityRepository
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    return $this->createQueryBuilder('b')
+    ->andWhere('b.exampleField = :val')
+    ->setParameter('val', $value)
+    ->orderBy('b.id', 'ASC')
+    ->setMaxResults(10)
+    ->getQuery()
+    ->getResult()
+    ;
     }
-    */
+     */
 
     /*
     public function findOneBySomeField($value): ?Buffy
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+    return $this->createQueryBuilder('b')
+    ->andWhere('b.exampleField = :val')
+    ->setParameter('val', $value)
+    ->getQuery()
+    ->getOneOrNullResult()
+    ;
     }
-    */
+     */
+
+    public function CreateTrueStockCriteria(): Criteria
+    {
+        //10-collection-criteria.
+        return Criteria::create()
+            ->andWhere(Criteria::expr()->eq('areStock', true))
+            ->orderBy(['name' => 'DESC']);
+
+    }
+
 }

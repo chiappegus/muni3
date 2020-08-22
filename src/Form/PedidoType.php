@@ -42,14 +42,42 @@ class PedidoType extends AbstractType
             ->add('restaurant')
             ->add('createdAt')
             ->add('updatedAt')
+            //->add('menu')
+
+            // ->add('menu', EntityType::class, array(
+
+            //     'class'         => Buffy::class,
+
+            //     'query_builder' => function ($er) {
+
+            //         return $er->createQueryBuilder('p')
+
+            //         //->addSelect('a')
+            //             ->andWhere('p.areStock = 0')
+            //         // ->setParameter('val', $this->tokenStorage->getToken()->getUser()->getId())
+            //             ->orderBy('p.name', 'ASC')
+            //         ;
+
+            //     },
+
+            //     'choice_label'  => 'name',
+
+            // ))
 
             ->add('menu', EntityType::class, array(
 
                 'class'         => Buffy::class,
 
                 'query_builder' => function ($er) {
+
+                    // $criteria = Criteria::create()
+                    //     ->andWhere(Criteria::expr()->eq('areStock', true))
+                    //     ->orderBy(['name' => 'DESC']);
+
+                    // dump($criteria);
+                    // dump($er);
+
                     return $er->createQueryBuilder('p')
-                    //  ->innerJoin('p.pedidos', 'a')
                         ->andWhere('p.areStock = 0')
                         ->orderBy('p.name', 'ASC')
                     ;

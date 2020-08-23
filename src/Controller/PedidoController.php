@@ -58,7 +58,7 @@ class PedidoController extends AbstractController
             $entityManager->getConnection()->beginTransaction();
 
             try {
-
+                // $form['menu']->getData();
                 //numeroden
                 //dd($buffy->getId());
                 $stock1 = new Buffy();
@@ -68,6 +68,8 @@ class PedidoController extends AbstractController
                 //$form['cantidad']->getData() == 50)
                 // $e = new Exception();
                 //dd($stock1[0]->getStock() - $form['cantidad']->getData());
+
+                $pedido->setPrecioPedido($stock1[0]->getPrecio() * $pedido->getCantidad());
 
                 $stock1[0]->setStock($stock1[0]->getStock() - $form['cantidad']->getData());
 
